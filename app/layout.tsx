@@ -17,23 +17,49 @@ export const SITE_URL = "https://siddharth.openappworld.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Siddharth Verma — Full Stack + Gen AI Developer",
+  title: "Siddharth Verma — Full Stack & Gen AI Developer | Indore, India",
   description:
-    "I use AI to eliminate the repetitive, so I can engineer what truly matters—scalable, intelligent systems.",
+    "Full-stack & GenAI developer building scalable, intelligent systems — LLM apps, RAG pipelines, and modern web experiences. Based in Indore, India.",
   openGraph: {
-    title: "Siddharth Verma — Full Stack + Gen AI Developer",
+    title: "Siddharth Verma — Full Stack & Gen AI Developer | Indore, India",
     description:
-      "I use AI to eliminate the repetitive, so I can engineer what truly matters—scalable, intelligent systems.",
+      "Full-stack & GenAI developer building scalable, intelligent systems — LLM apps, RAG pipelines, and modern web experiences. Based in Indore, India.",
     type: "website",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "Siddharth Verma — Full Stack + Gen AI Developer" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Siddharth Verma — Full Stack + Gen AI Developer",
+    title: "Siddharth Verma — Full Stack & Gen AI Developer | Indore, India",
     description:
-      "I use AI to eliminate the repetitive, so I can engineer what truly matters—scalable, intelligent systems.",
+      "Full-stack & GenAI developer building scalable, intelligent systems — LLM apps, RAG pipelines, and modern web experiences. Based in Indore, India.",
     images: ["/og.png"],
   },
+};
+
+// Structured data — tells Google this site IS the entity "Siddharth Verma",
+// a developer, and links the identity to GitHub/LinkedIn profiles.
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Siddharth Verma",
+  jobTitle: "Full Stack & Gen AI Developer",
+  url: SITE_URL,
+  image: `${SITE_URL}/myimg.jpg`,
+  sameAs: [
+    "https://github.com/siddharth1201",
+    "https://www.linkedin.com/in/siddharthverma7952a31a9",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Indore",
+    addressRegion: "Madhya Pradesh",
+    addressCountry: "IN",
+  },
+  knowsAbout: [
+    "Next.js", "React", "TypeScript", "Python", "FastAPI",
+    "LangChain", "RAG", "LLM applications", "Azure OpenAI",
+    "Google Gemini", "Vector databases", "AI agents",
+  ],
 };
 
 export const viewport: Viewport = {
@@ -50,6 +76,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#05060a]`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
         {children}
       </body>
     </html>
