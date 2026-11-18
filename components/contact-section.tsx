@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { profile } from "@/lib/data";
+import { ContactForm } from "@/components/contact-form";
 
 const contactInfo = [
   {
@@ -87,17 +88,11 @@ export function ContactSection() {
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="mt-10 text-center"
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, delay: 0.15 }}
+        className="glass mx-auto mt-10 max-w-2xl rounded-3xl p-8 sm:p-10"
       >
-        <a
-          href={`mailto:${profile.email}`}
-          className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#22d3ee] to-[#8b5cf6] px-8 py-4 font-medium text-[#05060a] shadow-lg shadow-[#22d3ee]/20 transition-transform hover:scale-[1.03] active:scale-[0.98]"
-        >
-          <Mail className="h-5 w-5" />
-          Say Hello
-        </a>
+        <ContactForm />
       </motion.div>
     </section>
   );
