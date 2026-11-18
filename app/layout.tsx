@@ -12,7 +12,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Canonical origin — used to resolve OG/Twitter image URLs and sitemap links.
+export const SITE_URL = "https://siddharth.openappworld.com";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Siddharth Verma — Full Stack + Gen AI Developer",
   description:
     "I use AI to eliminate the repetitive, so I can engineer what truly matters—scalable, intelligent systems.",
@@ -21,6 +25,14 @@ export const metadata: Metadata = {
     description:
       "I use AI to eliminate the repetitive, so I can engineer what truly matters—scalable, intelligent systems.",
     type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Siddharth Verma — Full Stack + Gen AI Developer" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Siddharth Verma — Full Stack + Gen AI Developer",
+    description:
+      "I use AI to eliminate the repetitive, so I can engineer what truly matters—scalable, intelligent systems.",
+    images: ["/og.png"],
   },
 };
 
