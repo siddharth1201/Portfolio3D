@@ -24,6 +24,7 @@ export const socials = {
 };
 
 export type Project = {
+  slug: string;
   title: string;
   description: string;
   tags: string[];
@@ -33,6 +34,7 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "lask-ai",
     title: "Lask AI — Your Personal Coding Assistant",
     description:
       "An AI-powered VS Code extension that acts as a coding assistant, helping you write code faster and more efficiently.",
@@ -51,6 +53,7 @@ export const projects: Project[] = [
     videoId: "iRfluvbTNaA",
   },
   {
+    slug: "hrms-chatbot",
     title: "HRMS Chatbot — HR Assistant for Enterprises",
     description:
       "A chatbot providing HR services to employees, managers, and HR teams. Integrated with the Keka HR portal for leave applications and attendance, plus Slack and MS Teams for seamless communication.",
@@ -67,6 +70,7 @@ export const projects: Project[] = [
     videoId: "E9OLF7G16ZA",
   },
   {
+    slug: "shopify-chatbot",
     title: "Shopify Chatbot",
     description:
       "An AI-powered chatbot for Shopify stores that helps customers find products, answer queries, and place orders. Integrated with the Shopify API for seamless communication.",
@@ -83,6 +87,7 @@ export const projects: Project[] = [
     videoId: "XBV5vPF5Ba8",
   },
   {
+    slug: "sage",
     title: "SAGE — Speech Analysis And Guidance Engine",
     description:
       "A call analysis system that evaluates customer calls for problems faced, emotional tone, resolution satisfaction and 140+ such parameters.",
@@ -158,8 +163,8 @@ export const skillCategories: SkillCategory[] = [
 ];
 
 export const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/#home" },
+  { label: "Skills", href: "/#skills" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Contact", href: "/#contact" },
 ];

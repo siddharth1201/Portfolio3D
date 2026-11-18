@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 // Canonical origin — used to resolve OG/Twitter image URLs and sitemap links.
-export const SITE_URL = "https://siddharth.openappworld.com";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

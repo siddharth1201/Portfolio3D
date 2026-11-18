@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "./layout";
+import { SITE_URL } from "@/lib/site";
 
 // Required for `output: "export"` — robots.txt is emitted at build time
 export const dynamic = "force-static";

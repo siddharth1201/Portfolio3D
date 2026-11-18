@@ -131,7 +131,15 @@ type CoreState = {
 
 const SECTION_IDS = ["home", "skills", "projects", "contact"] as const;
 
-export function NeuralCore({ isMobile, isDesktop }: { isMobile: boolean; isDesktop: boolean }) {
+export function NeuralCore({
+  isMobile,
+  isDesktop,
+  variant = "home",
+}: {
+  isMobile: boolean;
+  isDesktop: boolean;
+  variant?: "home" | "article";
+}) {
   const outer = useRef<THREE.Group>(null);   // pointer tilt + scroll position
   const spinner = useRef<THREE.Group>(null); // constant rotation + breathing
   const dust = useRef<THREE.Points>(null);
@@ -303,29 +311,41 @@ export function NeuralCore({ isMobile, isDesktop }: { isMobile: boolean; isDeskt
     }
 
     // Viewport center → which two keyframes are we between?
-    const center = window.scrollY + window.innerHeight * 0.5;
-    const t0 = tops.current;
-    let i = 0;
-    while (i < t0.length - 2 && center >= t0[i + 1]) i++;
-    const span = Math.max(1, t0[i + 1] - t0[i]);
-    // Hold each pose near its section, transition between them
-    const blend = THREE.MathUtils.smoothstep(
-      THREE.MathUtils.clamp((center - t0[i]) / span, 0, 1),
-      0.3,
-      0.7,
-    );
-    const a = keyframes[i];
-    const b = keyframes[Math.min(i + 1, keyframes.length - 1)];
-
-    // Damp every property toward the blended target — never snap
+    // Article pages skip the scroll choreography entirely and hold a
+    // calm "reading pose" — small, dimmed, off to the left of the text.
     const c = cur.current;
-    const lerp = THREE.MathUtils.lerp;
-    c.x = THREE.MathUtils.damp(c.x, lerp(a.x, b.x, blend), 3, delta);
-    c.y = THREE.MathUtils.damp(c.y, lerp(a.y, b.y, blend), 3, delta);
-    c.scale = THREE.MathUtils.damp(c.scale, lerp(a.scale, b.scale, blend), 3, delta);
-    c.spread = THREE.MathUtils.damp(c.spread, lerp(a.spread, b.spread, blend), 2, delta);
-    c.camZ = THREE.MathUtils.damp(c.camZ, lerp(a.camZ, b.camZ, blend), 2.5, delta);
-    c.rotSpeed = THREE.MathUtils.damp(c.rotSpeed, lerp(a.rotSpeed, b.rotSpeed, blend), 3, delta);
+    if (variant === "article") {
+      const pose = { x: isDesktop ? -1.5 : 0, y: 0.1, scale: 0.62, spread: 0.26, camZ: 7.2, rotSpeed: 0.04 };
+      c.x = THREE.MathUtils.damp(c.x, pose.x, 2, delta);
+      c.y = THREE.MathUtils.damp(c.y, pose.y, 2, delta);
+      c.scale = THREE.MathUtils.damp(c.scale, pose.scale, 2, delta);
+      c.spread = THREE.MathUtils.damp(c.spread, pose.spread, 2, delta);
+      c.camZ = THREE.MathUtils.damp(c.camZ, pose.camZ, 2, delta);
+      c.rotSpeed = THREE.MathUtils.damp(c.rotSpeed, pose.rotSpeed, 2, delta);
+    } else {
+      const center = window.scrollY + window.innerHeight * 0.5;
+      const t0 = tops.current;
+      let i = 0;
+      while (i < t0.length - 2 && center >= t0[i + 1]) i++;
+      const span = Math.max(1, t0[i + 1] - t0[i]);
+      // Hold each pose near its section, transition between them
+      const blend = THREE.MathUtils.smoothstep(
+        THREE.MathUtils.clamp((center - t0[i]) / span, 0, 1),
+        0.3,
+        0.7,
+      );
+      const a = keyframes[i];
+      const b = keyframes[Math.min(i + 1, keyframes.length - 1)];
+
+      // Damp every property toward the blended target — never snap
+      const lerp = THREE.MathUtils.lerp;
+      c.x = THREE.MathUtils.damp(c.x, lerp(a.x, b.x, blend), 3, delta);
+      c.y = THREE.MathUtils.damp(c.y, lerp(a.y, b.y, blend), 3, delta);
+      c.scale = THREE.MathUtils.damp(c.scale, lerp(a.scale, b.scale, blend), 3, delta);
+      c.spread = THREE.MathUtils.damp(c.spread, lerp(a.spread, b.spread, blend), 2, delta);
+      c.camZ = THREE.MathUtils.damp(c.camZ, lerp(a.camZ, b.camZ, blend), 2.5, delta);
+      c.rotSpeed = THREE.MathUtils.damp(c.rotSpeed, lerp(a.rotSpeed, b.rotSpeed, blend), 3, delta);
+    }
 
     // Apply pose
     if (outer.current) {
@@ -348,8 +368,12 @@ export function NeuralCore({ isMobile, isDesktop }: { isMobile: boolean; isDeskt
     uniforms.time.value = t;
 
     // Pulse particle size + core glow — "alive, thinking"
+    // (dimmed further on article pages so text stays readable)
     if (matRef.current) matRef.current.size = 0.05 * (1 + Math.sin(t * 1.7) * 0.18);
-    if (glowRef.current) glowRef.current.opacity = 0.32 + Math.sin(t * 1.2) * 0.08;
+    if (glowRef.current) {
+      const base = variant === "article" ? 0.16 : 0.32;
+      glowRef.current.opacity = base + Math.sin(t * 1.2) * 0.06;
+    }
   });
 
   return (

@@ -12,7 +12,7 @@ export function Navbar() {
     <header className="fixed top-0 inset-x-0 z-20">
       <nav className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mt-4 flex items-center justify-between rounded-2xl border border-white/10 bg-[#0a0d16]/70 px-5 py-3 backdrop-blur-xl">
-          <Link href="#home" className="text-lg font-bold tracking-tight">
+          <Link href="/" className="text-lg font-bold tracking-tight">
             <span className="text-gradient">SV</span>
             <span className="text-white/90">.</span>
           </Link>

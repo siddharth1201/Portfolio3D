@@ -5,7 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { NeuralCore } from "./neural-core";
 import { pointer, clickRequest } from "./pointer-store";
 
-export default function Scene() {
+export default function Scene({ variant = "home" }: { variant?: "home" | "article" }) {
   const [isMobile, setIsMobile] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -69,7 +69,7 @@ export default function Scene() {
           powerPreference: "high-performance",
         }}
       >
-        <NeuralCore key={isMobile ? "m" : "d"} isMobile={isMobile} isDesktop={isDesktop} />
+        <NeuralCore key={isMobile ? "m" : "d"} isMobile={isMobile} isDesktop={isDesktop} variant={variant} />
       </Canvas>
     </div>
   );

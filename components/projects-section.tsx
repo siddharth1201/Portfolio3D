@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
-import { Play, ExternalLink } from "lucide-react";
+import { Play, ExternalLink, ArrowRight } from "lucide-react";
 import { GithubIcon } from "@/components/brand-icons";
 import { projects } from "@/lib/data";
 
@@ -119,6 +120,13 @@ export function ProjectsSection() {
                     Live Demo
                   </button>
                 )}
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="ml-auto inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm text-white/40 transition-colors hover:text-[#7fe7f7]"
+                >
+                  Case study
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
               </div>
             </div>
           </motion.article>

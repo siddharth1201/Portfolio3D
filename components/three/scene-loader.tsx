@@ -9,6 +9,6 @@ const Scene = dynamic(() => import("./scene"), {
   loading: () => null,
 });
 
-export function SceneLoader() {
-  return <Scene />;
+export function SceneLoader({ variant = "home" }: { variant?: "home" | "article" }) {
+  return <Scene variant={variant} />;
 }
