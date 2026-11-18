@@ -1,0 +1,11 @@
+{
+  // Cloudflare Workers — static assets deployment.
+  // `npx wrangler deploy` uploads the ./out folder (Next.js static export)
+  // and serves it on Cloudflare's edge network.
+  "name": "portfolio3d",
+  "compatibility_date": "2026-01-01",
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}
