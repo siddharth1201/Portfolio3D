@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Play, ExternalLink, ArrowRight } from "lucide-react";
+import { Play, ArrowRight } from "lucide-react";
 import { GithubIcon } from "@/components/brand-icons";
 import { projects } from "@/lib/data";
 
@@ -27,6 +27,13 @@ export function ProjectsSection() {
           <p className="mx-auto mt-4 max-w-2xl text-white/50">
             Each project represents different skills and technologies I&apos;ve mastered.
           </p>
+          <Link
+            href="/projects"
+            className="mt-5 inline-flex items-center gap-2 rounded-xl border border-[#22d3ee]/40 bg-[#22d3ee]/10 px-5 py-2.5 text-sm font-medium text-[#7fe7f7] transition-colors hover:bg-[#22d3ee]/20"
+          >
+            Browse all case studies
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </motion.div>
 
@@ -94,7 +101,7 @@ export function ProjectsSection() {
                 ))}
               </div>
 
-              <div className="mt-6 flex gap-3">
+              <div className="mt-6 flex flex-wrap gap-3">
                 {project.githubUrl ? (
                   <a
                     href={project.githubUrl}
@@ -114,20 +121,22 @@ export function ProjectsSection() {
                 {project.videoId && (
                   <button
                     onClick={() => setPlaying(index)}
-                    className="inline-flex items-center gap-2 rounded-lg border border-[#22d3ee]/30 bg-[#22d3ee]/10 px-4 py-2 text-sm text-[#7fe7f7] transition-colors hover:bg-[#22d3ee]/20"
+                    className="inline-flex items-center gap-2 rounded-lg border border-white/15 px-4 py-2 text-sm text-white/70 transition-colors hover:border-white/35 hover:text-white"
                   >
-                    <ExternalLink className="h-4 w-4" />
-                    Live Demo
+                    <Play className="h-4 w-4" />
+                    Watch demo
                   </button>
                 )}
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="ml-auto inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm text-white/40 transition-colors hover:text-[#7fe7f7]"
-                >
-                  Case study
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
               </div>
+
+              {/* Primary CTA — the case study is the main path, so make it unmissable */}
+              <Link
+                href={`/projects/${project.slug}`}
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#22d3ee]/40 bg-[#22d3ee]/10 px-5 py-3 text-sm font-medium text-[#7fe7f7] transition-colors hover:bg-[#22d3ee]/20"
+              >
+                Read the case study
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
             </div>
           </motion.article>
         ))}
